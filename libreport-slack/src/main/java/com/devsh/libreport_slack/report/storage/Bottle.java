@@ -35,23 +35,29 @@ import java.util.List;
 import java.util.Locale;
 
 public class Bottle {
-    private final String SEPARATE = "/";
+    private final static String SEPARATE = "/";
+    private final static String LOG_PREFIX = "Bee_Log_";
+    private final static String LOG_FOLDER = "Bee";
 
-    private final File mFile;
     private final String mFilePath;
+    private final File mDirectoryFile;
 
     public Bottle(Context context) {
-        mFile = context.getFilesDir();
-//        mFile = Environment.getExternalStorageDirectory();
-        mFilePath = mFile.getAbsolutePath() + SEPARATE;
+        mFilePath = context.getFilesDir().getAbsolutePath() + SEPARATE + LOG_FOLDER;
+        mDirectoryFile = new File(mFilePath);
+
+        File directory = new File(mFilePath);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
     }
 
     public List<Message> loadPreviousLog() {
         List<Message> listMsg = new ArrayList<>();
 
-        String[] list = getList(mFile);
+        String[] list = getList(mDirectoryFile);
         for (String elem : list) {
-            String filePath = mFilePath + elem;
+            String filePath = mFilePath + SEPARATE + elem;
             Message msg = null;
             try {
                 msg = readLog(filePath);
@@ -64,8 +70,8 @@ public class Bottle {
     }
 
     public void clearAll() {
-        String[] list = getList(mFile);
-        String dirPath = mFile.getAbsolutePath() + SEPARATE;
+        String[] list = getList(mDirectoryFile);
+        String dirPath = mDirectoryFile.getAbsolutePath() + SEPARATE;
         for (String elem : list) {
             String filePath = dirPath + elem;
             deleteLog(filePath);
@@ -82,12 +88,12 @@ public class Bottle {
     private String getFileName() {
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd-HH-mm-ss", Locale.getDefault() );
         Date currentTime = new Date ();
-        return "Log_" + mSimpleDateFormat.format ( currentTime );
+        return LOG_PREFIX + mSimpleDateFormat.format ( currentTime );
     }
 
     public void saveLog(Message msg) {
         try {
-            PrintWriter printWriter = new PrintWriter(mFilePath + getFileName());
+            PrintWriter printWriter = new PrintWriter(mFilePath + SEPARATE + getFileName());
             Gson gson = new Gson();
             String json = gson.toJson(msg);
             printWriter.write(json);
