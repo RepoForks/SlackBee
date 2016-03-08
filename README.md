@@ -15,7 +15,7 @@ private String iconUrl = "http://www.example.jpg";
 ```
 # Example Log
 
-![](https://github.com/suhanlee/SlackBee/blob/master/Screenshot.2016-03-08.02.45.37.png)
+![](https://github.com/suhanlee/SlackBee/blob/master/demo_screenshot.png)
 
 # License
 ```
