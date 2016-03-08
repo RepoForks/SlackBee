@@ -11,10 +11,9 @@ import com.devsh.libreport_slack.report.Bee;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String TAG = "MainActivity";
-    private String apiKey = "SLACK-API-KEY";
-    private String crashName = "CRASH-BOT-NAME";
-    private String iconUrl = "http://www.example.jpg";
+    private String apiKey = "T0DJ86CLB/B0Q8V7ET0/74M6oWZIbxPcyAwK3fhxjfLh";
+    private String crashName = "SlackBee";
+    private String iconUrl = "https://avatars0.githubusercontent.com/u/2666166?v=3&s=460";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
