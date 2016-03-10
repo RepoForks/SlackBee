@@ -1,8 +1,22 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.3.4'
+    }
+}
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+
+    lintOptions {
+        abortOnError false
+    }
 
     defaultConfig {
         minSdkVersion 16
@@ -25,4 +39,15 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+}
+
+publish {
+    userOrg = 'suhanlee'
+    groupId = 'com.devsh.suhanlee'
+    artifactId = 'slack-bee'
+    publishVersion = '0.1.0'
+    desc = 'Android Crash Log Report Library for Slack - It was inspired by Slack WebHooks API'
+    website = 'https://github.com/suhanlee/SlackBee'
+    issueTracker = "${website}/issues"
+    repository = "${website}.git"
 }
