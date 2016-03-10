@@ -2,6 +2,24 @@
 Android Crash Report to Slack Channel
 
 # How to Use
+
+## Download
+Maven
+
+```xml
+<dependency>
+  <groupId>com.devsh.suhanlee</groupId>
+  <artifactId>slack-bee</artifactId>
+  <version>0.1.0</version>
+  <type>pom</type>
+</dependency>
+```
+or Gradle
+
+```java
+compile 'com.devsh.suhanlee:slack-bee:0.1.0'
+```
+
 ```java
 private String apiKey = "T0DJ86CLB/B0Q8V7ET0/74M6oWZIbxPcyAwK3fhxjfLh"; // web-hook-api key
 private String crashName = "SlackBee";  // bot name
