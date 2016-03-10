@@ -8,9 +8,9 @@ private String crashName = "SlackBee";  // bot name
 private String iconUrl = "https://avatars0.githubusercontent.com/u/2666166?v=3&s=460"; // image url
 ...
 
-  // Slack Reporter
-  IReporter reporter = SlackReporter.create(apiKey, crashName, iconUrl);
-  Bee.init(getApplication(), reporter);
+// Slack Reporter
+IReporter reporter = SlackReporter.create(apiKey, crashName, iconUrl);
+Bee.init(getApplication(), reporter);
 ```
 # Example Log
 
