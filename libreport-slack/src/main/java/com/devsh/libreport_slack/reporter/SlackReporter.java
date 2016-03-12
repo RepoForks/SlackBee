@@ -33,12 +33,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SlackReporter implements IReporter{
 
     private final static String TAG = "ReportManager";
 
-    private static Retrofit sRetrofit;
     private static SlackReportService sService;
     private final String mApiKey;
     private final String mCrashName;
@@ -53,24 +53,22 @@ public class SlackReporter implements IReporter{
         mApiKey = apiKey;
         mCrashName = crashName;
 
+        Retrofit.Builder builder = new Retrofit.Builder();
+        builder.baseUrl("https://hooks.slack.com")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create());
+
+
         if (Bee.isDebug()) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
-            sRetrofit = new Retrofit.Builder()
-                    .baseUrl("https://hooks.slack.com")
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        } else {
-            sRetrofit = new Retrofit.Builder()
-                    .baseUrl("https://hooks.slack.com")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
+            builder.client(client);
         }
 
-        sService = sRetrofit.create(SlackReportService.class);
+        Retrofit retrofit = builder.build();
+        sService = retrofit.create(SlackReportService.class);
     }
 
     @Override
