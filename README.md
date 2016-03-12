@@ -2,16 +2,33 @@
 Android Crash Report to Slack Channel
 
 # How to Use
-```java
 
-private String apiKey = "SLACK-API-KEY";
-private String crashName = "CRASH-BOT-NAME";
-private String iconUrl = "http://www.example.jpg";
+## Download
+Maven
+
+```xml
+<dependency>
+  <groupId>com.devsh.suhanlee</groupId>
+  <artifactId>slack-bee</artifactId>
+  <version>0.1.0</version>
+  <type>pom</type>
+</dependency>
+```
+or Gradle
+
+```java
+compile 'com.devsh.suhanlee:slack-bee:0.1.0'
+```
+
+```java
+private String apiKey = "T0DJ86CLB/B0Q8V7ET0/74M6oWZIbxPcyAwK3fhxjfLh"; // web-hook-api key
+private String crashName = "SlackBee";  // bot name
+private String iconUrl = "https://avatars0.githubusercontent.com/u/2666166?v=3&s=460"; // image url
 ...
 
-  // Slack Reporter
-  IReporter reporter = SlackReporter.create(apiKey, crashName, iconUrl);
-  Bee.init(getApplication(), reporter);
+// Slack Reporter
+IReporter reporter = SlackReporter.create(apiKey, crashName, iconUrl);
+Bee.init(getApplication(), reporter);
 ```
 # Example Log
 
