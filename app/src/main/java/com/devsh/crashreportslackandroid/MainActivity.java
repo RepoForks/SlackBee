@@ -11,9 +11,9 @@ import com.devsh.libreport_slack.report.Bee;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String apiKey = "T0DJ86CLB/B0Q8V7ET0/74M6oWZIbxPcyAwK3fhxjfLh";
-    private String crashName = "SlackBee";
-    private String iconUrl = "https://avatars0.githubusercontent.com/u/2666166?v=3&s=460";
+    private String apiKey = "T0DJ86CLB/B0Q8V7ET0/74M6oWZIbxPcyAwK3fhxjfLh"; // web-hook-api key
+    private String crashName = "SlackBee";  // bot name
+    private String iconUrl = "https://avatars0.githubusercontent.com/u/2666166?v=3&s=460"; // image url
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
