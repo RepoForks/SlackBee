@@ -8,3 +8,4 @@
 /build
 /captures
 *.sh
+deploy-bintray.sh

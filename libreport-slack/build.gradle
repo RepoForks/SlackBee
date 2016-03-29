@@ -46,7 +46,7 @@ publish {
     userOrg = 'suhanlee'
     groupId = 'com.devsh.suhanlee'
     artifactId = 'slack-bee'
-    publishVersion = '0.1.1'
+    publishVersion = '0.1.2'
     desc = 'Android Crash Log Report Library for Slack - It was inspired by Slack WebHooks API'
     website = 'https://github.com/suhanlee/SlackBee'
     issueTracker = "${website}/issues"
