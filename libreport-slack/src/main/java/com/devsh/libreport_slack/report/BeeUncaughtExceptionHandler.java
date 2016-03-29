@@ -52,16 +52,28 @@ public class BeeUncaughtExceptionHandler implements Thread.UncaughtExceptionHand
         }
     }
 
-    private String getStackTrace(Throwable e) {
-        String result ="";
-        result += e.getClass() + "\n" + e.getMessage() + "\nCaused by: " + e.getCause() + "\n";
-
+    private String _getStackTrace(Throwable e) {
+        String stackLog = "";
+        stackLog += e.getClass() + ":" + e.getMessage() + "\n";
         StackTraceElement[] lists = e.getStackTrace();
+
         for(StackTraceElement list: lists) {
-            result += list.toString() + "\n";
+            stackLog += list.toString() + "\n";
         }
 
-        return result;
+        return stackLog;
+    }
+
+    private String getStackTrace(Throwable e) {
+        String totalStackLog ="";
+        totalStackLog += _getStackTrace(e);
+
+        if (e.getCause() != null) {
+            totalStackLog += "\n";
+            totalStackLog += "Caused by: " + _getStackTrace(e.getCause());
+        }
+
+        return totalStackLog;
     }
 
     private Message getCrashMessage(Throwable e) {
