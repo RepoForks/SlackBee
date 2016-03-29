@@ -54,7 +54,7 @@ public class BeeUncaughtExceptionHandler implements Thread.UncaughtExceptionHand
 
     private String getStackTrace(Throwable e) {
         String result ="";
-        result += e.getMessage() + "\n";
+        result += e.getClass() + "\n" + e.getMessage() + "\nCaused by: " + e.getCause() + "\n";
 
         StackTraceElement[] lists = e.getStackTrace();
         for(StackTraceElement list: lists) {
