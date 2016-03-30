@@ -17,7 +17,7 @@ Maven
 or Gradle
 
 ```java
-compile 'com.devsh.suhanlee:slack-bee:0.1.1'
+compile 'com.devsh.suhanlee:slack-bee:0.1.4'
 ```
 
 ```java
