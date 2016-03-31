@@ -38,11 +38,18 @@ public class ALog {
     }
 
     private static String getPrefix(StackTraceElement callerElement) {
-            return PREFIX + "[" +
-                    callerElement.getFileName().replace(".java", "") + ":" +
-                    callerElement.getMethodName() + ":" +
-                    callerElement.getLineNumber() + "]";
+        String fileName = callerElement.getFileName();
+        String methodName = callerElement.getMethodName();
+        int lineNumber = callerElement.getLineNumber();
 
+        if (fileName != null) {
+            fileName = fileName.replace(".java", "");
+        }
+
+        return PREFIX + "[" +
+                fileName + ":" +
+                methodName + ":" +
+                lineNumber + "]";
     }
 
     private static String replaceLineFeeds(String str) {
@@ -59,37 +66,41 @@ public class ALog {
     }
 
     private static void print(LogFunction log, Object... obj) {
-        // only debug mode.
-        if (!isDebug()) {
-            return;
-        }
-
-        Exception exception = new Exception();
-        StackTraceElement callerElement = exception.getStackTrace()[1];
-        String strString = obj.length == 0 ? "" : obj[0].toString();
-
-        boolean isFirst = true;
-
-        String clean = replaceLineFeeds( strString );
-
-        while ( clean != null && clean.length() > 0 ) {
-            String strCurrent = clean;
-            if ( clean.length() > MAX_LENGTH) {
-                strCurrent = clean.substring( 0, MAX_LENGTH);
+        try {
+            // only debug mode.
+            if (!isDebug()) {
+                return;
             }
 
-            if (isFirst) {
-                log.p(getPrefix(callerElement) + strCurrent);
-            }else{
-                log.p(strCurrent);
-            }
+            Exception exception = new Exception();
+            StackTraceElement callerElement = exception.getStackTrace()[1];
+            String strString = obj.length == 0 ? "" : obj[0].toString();
 
-            if (clean.length() > MAX_LENGTH) {
-                clean = clean.substring(MAX_LENGTH, clean.length() );
-            }else{
-                clean = null;
+            boolean isFirst = true;
+
+            String clean = replaceLineFeeds(strString);
+
+            while (clean != null && clean.length() > 0) {
+                String strCurrent = clean;
+                if (clean.length() > MAX_LENGTH) {
+                    strCurrent = clean.substring(0, MAX_LENGTH);
+                }
+
+                if (isFirst) {
+                    log.p(getPrefix(callerElement) + strCurrent);
+                } else {
+                    log.p(strCurrent);
+                }
+
+                if (clean.length() > MAX_LENGTH) {
+                    clean = clean.substring(MAX_LENGTH, clean.length());
+                } else {
+                    clean = null;
+                }
+                isFirst = false;
             }
-            isFirst = false;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
